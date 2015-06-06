@@ -1,6 +1,6 @@
 # Gittwork
 
-A small collection of methods to enhance Teamwork Projects. Built using Lumen, a PHP micro framework from the maker of Laravel.
+A small collection of methods to enhance Teamwork Projects, used internally at Murrion Software, aimed at software developers using Teamwork + Bitbucket. Built using Lumen, a PHP micro framework from the maker of Laravel.
 
 ## Installation
 

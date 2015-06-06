@@ -16,7 +16,13 @@ $app->get('/', function () use ($app) {
 });
 
 /*
- * Point TASK.CREATED to this Route
+ * Point a Webhook called TASK.CREATED in Teamwork to this Route
  * The data looks like: event=TASK%2ECREATED&objectId=3488853&accountId=81120&userId=43244
  */
 $app->post('receive_teamwork_task', 'App\Http\Controllers\TeamworkController@receiveTeamworkWebhook');
+
+
+/*
+ * Point a POST request to this Route in Bitbucket
+ */
+$app->post('receive_bitbucket_commit', 'App\Http\Controllers\BitbucketController@receiveBitbucketPost');

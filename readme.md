@@ -36,4 +36,17 @@ This will update the task description to include:
 
 Create a POST commit web hook on Bitbucket and point it to: http(s)://yourdomain.com/receive_bitbucket_commit
 
-If a Teamwork Task ID is mentioned in the commit message then the relevant Task will be updated with a new Comment which shows the commit message, any files changed as well as a link to the changeset on Bitbucket
+If a Teamwork Task ID is mentioned in the commit message then the relevant Task will be updated with a new Comment which shows the commit message, any files changed as well as a link to the changeset on Bitbucket, for example:
+
+
+> added some more things to somefile.text
+> 
+> files changed
+> modified somefile.text
+> 
+> branch
+> master
+> 
+> view the commit on bitbucket
+> https://bitbucket.org/xxxxx/project-x/commits/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+>

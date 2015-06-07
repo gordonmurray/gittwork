@@ -9,8 +9,7 @@ Please note: This project is still in active development and will change a lot
 ## Installation
 
 1. Clone the repository to a web accessible location, such as https://domain.com/
-2. Add your Teamwork API key to /app/Http/Controllers/TeamworkController.php and /app/Http/Controllers/BitbucketController.php
-3. Add your Teamwork custom URL to /app/Http/Controllers/TeamworkController.php and /app/Http/Controllers/BitbucketController.php
+2. Copy the file called .env.example to .env and set your own TEAMWORK_API_KEY and TEAMWORK_CUSTOM_URL
 
 ## Current Features
 

@@ -17,6 +17,7 @@ $app->get('/', function () use ($app) {
 
 /*
  * Point a Webhook called TASK.CREATED in Teamwork to this Route
+ * This will update a Task Description to include the Task ID so a developer will know what to use in their commit message
  * The data looks like: event=TASK%2ECREATED&objectId=3488853&accountId=81120&userId=43244
  */
 $app->post('receive_teamwork_task', 'App\Http\Controllers\TeamworkController@receiveTeamworkWebhook');
@@ -24,5 +25,6 @@ $app->post('receive_teamwork_task', 'App\Http\Controllers\TeamworkController@rec
 
 /*
  * Point a POST request to this Route in Bitbucket
+ * This will add the details from a Commit as a Comment to a Teamwork Task
  */
 $app->post('receive_bitbucket_commit', 'App\Http\Controllers\BitbucketController@receiveBitbucketPost');

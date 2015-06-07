@@ -45,9 +45,7 @@ class BitbucketController extends BaseController
                         );
 
                         // Retrieve Task details
-                        // TODO: change the Teamwork API url to a config variable
-                        // TODO: Change the Teamwork API key to a config variable
-                        $taskJson = $this->curl('http://YOUR_TEAMWORK_URL/tasks/' . $taskID . '.json', 'GET', 'YOUR_TEAMWORK_API_KEY');
+                        $taskJson = $this->curl(env('TEAMWORK_CUSTOM_URL') . '/tasks/' . $taskID . '.json', 'GET', env('TEAMWORK_API_KEY'));
                         $taskDetailsArray = json_decode($taskJson, true);
 
                         // look for Time taken and enable the Time section of Teamwork
@@ -63,7 +61,7 @@ class BitbucketController extends BaseController
                             );
 
                             // enable the 'Time' section in Teamwork in case it is not enabled
-                            $this->curl('http://YOUR_TEAMWORK_URL/projects/' . $projectID . '.json', 'PUT', 'YOUR_TEAMWORK_API_KEY', $enableTimeArray);
+                            $this->curl(env('TEAMWORK_CUSTOM_URL') .'/projects/' . $projectID . '.json', 'PUT', env('TEAMWORK_API_KEY'), $enableTimeArray);
                         }
 
                         // Clean up comment first
@@ -82,7 +80,7 @@ class BitbucketController extends BaseController
                         );
 
                         // Add a comment to the task mentioned in the commit message
-                        $this->curl('http://YOUR_TEAMWORK_URL/tasks/' . $taskID . '/comments.json', 'POST', 'YOUR_TEAMWORK_API_KEY', $commentArray);
+                        $this->curl(env('TEAMWORK_CUSTOM_URL') .'/tasks/' . $taskID . '/comments.json', 'POST', env('TEAMWORK_API_KEY'), $commentArray);
 
                         // todo: If development time was sent too, create a Time sheet entry for this task
 

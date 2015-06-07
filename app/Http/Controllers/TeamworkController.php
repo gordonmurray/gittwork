@@ -19,7 +19,7 @@ class TeamworkController extends BaseController
         $objectId = array_get($webhookArray, 'objectId');
 
         // Retrieve all tasks details
-        $taskJson = $this->curl('http://YOUR_TEAMWORK_URL/tasks/' . $objectId . '.json', 'GET', 'YOUR_TEAMWORK_API_KEY');
+        $taskJson = $this->curl(env('TEAMWORK_CUSTOM_URL') . '/tasks/' . $objectId . '.json', 'GET', env('TEAMWORK_API_KEY'));
         $taskArray = json_decode($taskJson, true);
 
         // Append to the Task description
@@ -31,7 +31,7 @@ class TeamworkController extends BaseController
         );
 
         // Update the Task Description
-        $taskJson = $this->curl('http://YOUR_TEAMWORK_URL/tasks/' . $objectId . '.json', 'PUT', 'YOUR_TEAMWORK_API_KEY', $taskDataArray);
+        $taskJson = $this->curl(env('TEAMWORK_CUSTOM_URL') . '/tasks/' . $objectId . '.json', 'PUT', env('TEAMWORK_API_KEY'), $taskDataArray);
 
         return $taskJson;
     }

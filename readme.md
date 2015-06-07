@@ -1,6 +1,6 @@
 # Gittwork
 
-A small collection of methods to enhance Teamwork Projects, used internally at [Murrion Software](http://murrion.com), aimed at software developers using [Teamwork](https://www.teamwork.com/refer/murrion) + [Bitbucket](https://bitbucket.org/). Built using [Lumen](http://lumen.laravel.com/), a PHP micro framework from the maker of Laravel.
+A small collection of methods to enhance Teamwork Projects just a little. Used internally at [Murrion Software](http://murrion.com), aimed at software developers using [Teamwork](https://www.teamwork.com/refer/murrion) + [Bitbucket](https://bitbucket.org/) to close the gap between Developers, project managers and clients. Built using [Lumen](http://lumen.laravel.com/), a PHP micro framework from the maker of Laravel.
 
 ```
 Please note: This project is still in active development and will change a lot

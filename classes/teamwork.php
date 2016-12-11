@@ -29,13 +29,13 @@ class teamwork
     /**
      * Prepare the Task Description to use
      *
-     * @param $taskJson
+     * @param $task
      * @return string
      */
-    public function prepareTaskDescription($taskJson)
+    public function prepareTaskDescription($task)
     {
-        $taskJson = json_decode($taskJson, TRUE);
-        $taskId = $taskJson['todo-item']['id'];
+        $task = json_decode($task, TRUE);
+        $taskId = $task['todo-item']['id'];
 
         $description = "Include \"[$taskId]\" or \"[Finish(ed) $taskId]\" to update this task when making a commit. Record time spent on the task by using: \"[$taskId:30]\"";
 
@@ -71,13 +71,11 @@ class teamwork
      *
      * @param $endpoint
      * @param $objectId
-     * @param $data
+     * @param $json
      * @return mixed
      */
-    public function put($endpoint, $objectId, $data)
+    public function put($endpoint, $objectId, $json)
     {
-        $json = json_encode(array('todo-item' => array('description' => $data)));
-
         $channel = curl_init();
         curl_setopt($channel, CURLOPT_URL, $this->teamworkURL . $endpoint . '/' . $objectId . '.json');
         curl_setopt($channel, CURLOPT_RETURNTRANSFER, 1);
@@ -93,5 +91,24 @@ class teamwork
         curl_close($channel);
 
         return $response;
+    }
+
+    /**
+     * Given the Project details, create a new project title: [id] name
+     * @param $project
+     * @return mixed
+     */
+    public function prepateProjectTitle($project)
+    {
+        $projectArray = json_decode($project, TRUE);
+
+        $projectId = $projectArray['project']['id'];
+
+        $projectName = $projectArray['project']['name'];
+
+        $newProjectName = "[$projectId] $projectName";
+
+        return $newProjectName;
+
     }
 }

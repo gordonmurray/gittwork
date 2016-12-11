@@ -13,6 +13,7 @@ Respond to Teamwork Projects Webhooks, to improve a Teamwork Projects + Github w
 ## Current Features
 
 1. Automatically add a Task ID and other information to the description of a new Task
+2. Expose the Project Number of a new Project
 
 ### Automatically add a Task ID and other information to the description of a new Task
 
@@ -21,3 +22,9 @@ Create a TASK.CREATED webhook in your Teamwork Projects account and point it to:
 This will update the task description to include:
 
 ```Include "[12345678]" or "[Finish(ed) 12345678]" to update this Task when making a commit. Record time spent on the task by using: "[12345678:30]"```
+
+### Expose the Project Number of a new Project
+
+Create a PROJECT.CREATED webhook in your Teamwork Projects account and point it to: https://your_deployment_location/gittwork/public/webhooks.php
+
+This will update the a new Project title from "New Project" to "[1] New Project"

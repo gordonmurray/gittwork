@@ -8,7 +8,9 @@ $task = $teamwork->get('tasks', $webHookData['objectId']);
 // prepare a Description
 $taskDescription = $teamwork->prepareTaskDescription($task);
 
+$taskJson = json_encode(array('todo-item' => array('description' => $data)));
+
 // Update the Task
-$response = $teamwork->put('tasks', $webHookData['objectId'], $taskDescription);
+$response = $teamwork->put('tasks', $webHookData['objectId'], $taskJson);
 
 echo $response;

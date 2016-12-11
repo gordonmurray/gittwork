@@ -1,16 +1,16 @@
 # Gittwork
 
-A collection of methods to improve a Teamwork Projects + Github workflow. Aimed at software developers using both [Teamwork](https://www.teamwork.com) + [Github](https://github.com/). Designed to close the gap between Tasks and Code. 
+Respond to Teamwork Projects Webhooks, to improve a Teamwork Projects + Github workflow. Aimed at software developers using both [Teamwork](https://www.teamwork.com) + [Github](https://github.com) or [Bitbucket](https://bitbucket.org). Designed to close the gap between Tasks and Code. 
 
 ## Quick start
 
 1. Clone the repository
 2. Copy the file called .env.example to .env and set your own TEAMWORK_URL and TEAMWORK_APIKEY
-3. Start pointing webhooks in Teamwork Projects to webhooks.php
+3. Point one or more webhooks in Teamwork Projects to webhooks.php
 
 ## Current Features
 
-1. Automatically update new Tasks in Teamwork Projects to add the Task ID to its description with additional information on how to send Commit data to the Task.
+1. Automatically add a Task ID and other information to the description of a new Task
 
 ### Automatically add a Task ID and other information to the description of a new Task
 

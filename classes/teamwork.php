@@ -29,13 +29,13 @@ class teamwork
     /**
      * Prepare the Task Description to use
      *
-     * @param $task
+     * @param $taskJson
      * @return string
      */
-    public function prepareTaskDescription($task)
+    public function prepareTaskDescription($taskJson)
     {
-        $task = json_decode($task, TRUE);
-        $taskId = $task['todo-item']['id'];
+        $taskJson = json_decode($taskJson, TRUE);
+        $taskId = $taskJson['todo-item']['id'];
 
         $description = "Include \"[$taskId]\" or \"[Finish(ed) $taskId]\" to update this task when making a commit. Record time spent on the task by using: \"[$taskId:30]\"";
 

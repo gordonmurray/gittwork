@@ -1,6 +1,6 @@
 # Gittwork
 
-[![Build Status](https://travis-ci.org/gordonmurray/gittwork.svg?branch=master)](https://travis-ci.org/gordonmurray/gittwork)
+[![Build Status](https://travis-ci.org/gordonmurray/gittwork.svg?branch=master)](https://travis-ci.org/gordonmurray/gittwork) [![Coverage Status](https://coveralls.io/repos/github/gordonmurray/gittwork/badge.svg?branch=master)](https://coveralls.io/github/gordonmurray/gittwork?branch=master)
 
 Respond to Teamwork Projects Webhooks, to improve a Teamwork Projects + Github workflow. Aimed at software developers using both [Teamwork](https://www.teamwork.com) + [Github](https://github.com) or [Bitbucket](https://bitbucket.org). Designed to close the gap between Tasks and Code. 
 

@@ -17,3 +17,4 @@ notifications:
     on_success: [always] 
     on_failure: [never] 
     on_start: [never]
+

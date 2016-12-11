@@ -18,7 +18,7 @@ if(isset($webHookData['event']) && $webHookData['event']!='') {
 
     $eventFile = strtolower(str_replace(".", "_", $webHookData['event']));
 
-    // call a file related to the event name, for example TASK.CREATED becomes task_created.php
+    // call a file related to the event name, for example TASK.CREATED will look for task_created.php
     if (file_exists('events/' . $eventFile . '.php')) {
         require_once('events/' . $eventFile . '.php');
     }

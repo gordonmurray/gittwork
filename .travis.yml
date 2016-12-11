@@ -9,3 +9,11 @@ before_script:
   - composer install --prefer-source --no-interaction
 
 script: vendor/bin/phpunit --debug
+
+notifications:
+  webhooks:
+    urls:
+      - https://murrion.deployhq.com/deploy/gittwork-gordonmurray-com/to/murrion-london-1/r6qqm6s6vhh0
+    on_success: [always] 
+    on_failure: [never] 
+    on_start: [never]

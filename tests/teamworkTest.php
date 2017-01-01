@@ -33,4 +33,17 @@ class teamworkTest extends TestCase
 
     }
 
+    public function testPrepareProjectTitle()
+    {
+        $teamwork = new teamwork\teamwork('test','test');
+
+        $array = array(
+            'project'=>array('id'=>12345, 'name'=>'my test project')
+        );
+
+        $response = $teamwork->prepareProjectTitle(json_encode($array));
+
+        $this->assertEquals($response, '[12345] my test project');
+    }
+
 }

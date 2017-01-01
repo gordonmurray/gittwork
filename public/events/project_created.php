@@ -6,7 +6,7 @@
 $project = $teamwork->get('projects', $webHookData['objectId']);
 
 // prepare a new Project Title
-$projectTitle = $teamwork->prepateProjectTitle($project);
+$projectTitle = $teamwork->prepareProjectTitle($project);
 
 $projectJson = json_encode(array('project'=>array('name'=>$projectTitle)));
 

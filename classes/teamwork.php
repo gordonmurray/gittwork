@@ -98,7 +98,7 @@ class teamwork
      * @param $project
      * @return mixed
      */
-    public function prepateProjectTitle($project)
+    public function prepareProjectTitle($project)
     {
         $projectArray = json_decode($project, TRUE);
 

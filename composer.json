@@ -1,7 +1,7 @@
 {
     "name": "gordonmurrray/gittwork",
-    "description": "Methods to improve a Teamwork Projects + Github workflow",
-    "keywords": ["teamwork", "github"],
+    "description": "Methods to improve a Teamwork Projects + Git workflow",
+    "keywords": ["teamwork", "github", "bitbucket"],
     "require": {
         "vlucas/phpdotenv": "~1.0",
         "phpunit/phpunit": "5.7.3"

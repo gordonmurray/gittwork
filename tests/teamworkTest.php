@@ -7,7 +7,7 @@ class teamworkTest extends TestCase
 {
 
 
-    public function testreceivePostedData()
+    public function testReceivePostedData()
     {
         $teamwork = new teamwork\teamwork('test','test');
 
@@ -19,7 +19,7 @@ class teamworkTest extends TestCase
         $this->assertArrayHasKey('userId', $response);
     }
 
-    public function testprepareTaskDescription()
+    public function testPrepareTaskDescription()
     {
         $teamwork = new teamwork\teamwork('test','test');
 

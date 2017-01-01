@@ -1,6 +1,6 @@
 <?php
 
-namespace bitbucket;
+namespace teamwork;
 
 
 class bitbucket

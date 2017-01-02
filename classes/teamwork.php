@@ -118,7 +118,7 @@ class teamwork
      * @param string $name
      * @param array $array
      */
-    public function log(string $name, array $array)
+    public function log($name, array $array)
     {
         if (is_array($array) && !empty($array)) {
 

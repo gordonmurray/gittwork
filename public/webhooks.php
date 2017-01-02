@@ -13,6 +13,9 @@ $data = file_get_contents("php://input");
 // parse webhook data in to an array
 $webHookData = $teamwork->receivePostedData($data);
 
+// log incoming data
+$teamwork->log('teamwork', $webHookData);
+
 // if a webhook event is passed, handle it
 if(isset($webHookData['event']) && $webHookData['event']!='') {
 

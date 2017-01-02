@@ -8,7 +8,8 @@ Respond to Teamwork Projects Webhooks, to improve a Teamwork Projects + Git work
 
 1. Clone the repository
 2. Copy the file called .env.example to .env and set your own TEAMWORK_URL and TEAMWORK_APIKEY
-3. Point one or more webhooks in Teamwork Projects to webhooks.php
+3. Give the /logs folder write permissions
+4. Point one or more webhooks in Teamwork Projects to webhooks.php
 
 ## Current Features
 

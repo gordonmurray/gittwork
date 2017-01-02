@@ -12,7 +12,7 @@ class teamwork
         $this->teamworkURL = $teamworkURL;
         $this->apiKey = $apiKey;
     }
-    
+
     /**
      * Parse the incoming raw data in to an array
      *
@@ -110,5 +110,25 @@ class teamwork
 
         return $newProjectName;
 
+    }
+    
+    /**
+     * Write to a log
+     *
+     * @param string $name
+     * @param array $array
+     */
+    public function log(string $name, array $array)
+    {
+        if (is_array($array) && !empty($array)) {
+
+            $timestamp = date("Y_m_d_G_i_s");
+
+            $fp = fopen(__DIR__ . '/../logs/' . $name . '.log', 'a');
+
+            fwrite($fp, $timestamp . ' ' . json_encode($array) . PHP_EOL);
+
+            fclose($fp);
+        }
     }
 }

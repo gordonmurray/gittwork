@@ -12,21 +12,35 @@ class github
     /**
      * Parse the incoming data in to an array
      *
-     * @param json $data
-     * @return mixed
+     * @param $data
+     * @return array
      */
-    public function receivePostedData(json $data)
+    public function receivePostedData($data)
     {
-        return json_decode($data, true);
+        if (isset($data) && $data != '') {
+            return (array)json_decode($data, true);
+        } else {
+            return array();
+        }
     }
 
     /**
      * Write to a log
      *
-     * @param array $data
+     * @param string $name
+     * @param array $array
      */
-    public function log(array $data)
+    public function log(string $name, array $array)
     {
+        if (is_array($array) && !empty($array)) {
 
+            $timestamp = date("Y_m_d_G_i_s");
+
+            $fp = fopen(__DIR__ . '/../logs/' . $name . '.log', 'a');
+
+            fwrite($fp, $timestamp . ' ' . json_encode($array) . PHP_EOL);
+
+            fclose($fp);
+        }
     }
 }

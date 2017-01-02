@@ -10,3 +10,6 @@ $data = file_get_contents("php://input");
 
 // parse webhook data in to an array
 $webHookData = $github->receivePostedData($data);
+
+// log incoming data
+$github->log($webHookData);

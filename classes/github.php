@@ -43,4 +43,20 @@ class github
             fclose($fp);
         }
     }
+
+    /**
+     * Pull out the commit information we need
+     *
+     * @param array $webHookData
+     * @return array
+     */
+    public function parseGithubData(array $webHookData)
+    {
+        if (isset($webHookData['commits']) && !empty($webHookData['commits'])) {
+            return $webHookData['commits'];
+        } else {
+            $this->log('github', array('error' => 'missing commits array from webhook data'));
+            return array();
+        }
+    }
 }

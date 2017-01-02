@@ -111,7 +111,7 @@ class teamwork
         return $newProjectName;
 
     }
-    
+
     /**
      * Write to a log
      *
@@ -130,5 +130,123 @@ class teamwork
 
             fclose($fp);
         }
+    }
+
+    /**
+     * Add one or more Commits as Comments to a Task on Teamwork
+     *
+     * @param array $commits
+     * @return array
+     */
+    public function addCommitComment(array $commits)
+    {
+        $responsesArray = array();
+
+        // loop over the commits
+        foreach ($commits as $commit) {
+
+            $message = $commit['message'];
+
+            preg_match_all('(\\[.*?\\])', $message, $teamworkTaskIds);
+
+            $taskIdsArray = current($teamworkTaskIds);
+
+            if (is_array($taskIdsArray) && !empty($taskIdsArray)) {
+
+                foreach ($taskIdsArray as $taskID) {
+
+                    $taskID = strtolower(preg_replace('/\s+/', '', trim($taskID))); // trim all whitespace, just in case
+
+                    if ($taskID != '') {
+
+                        $taskID = $this->cleanTaskId($taskID);
+
+                        $message = $this->cleanMessage($taskID, $message);
+
+                        $commentArray = array(
+                            'comment' => array(
+                                'body' => $message,
+                                'isprivate' => false,
+                                ''
+                            )
+                        );
+
+                        $responsesArray[] = $this->post('/tasks/' . $taskID . '/comments.json', $taskID, json_encode($commentArray));
+
+                    }
+                }
+            } else {
+                $responsesArray[] = 'No task ID found in this commit';
+            }
+
+
+        }
+
+        return $responsesArray;
+    }
+
+    /**
+     * Clean up the task ID, from something like [finished 3312] to just 3312
+     *
+     * @param string $taskID
+     * @return int
+     */
+    public function cleanTaskId(string $taskID)
+    {
+        $taskID = strtolower($taskID);
+
+        $taskID = str_replace(
+            array('[', ']', 'finished', 'finish'),
+            array('', '', '', ''),
+            $taskID
+        );
+
+        return (int) $taskID;
+    }
+
+    /**
+     * Clean up the commit message, remove any task Id
+     *
+     * @param int $taskId
+     * @param string $message
+     * @return string
+     */
+    public function cleanMessage(int $taskId, string $message)
+    {
+        $messageCleaned = str_replace(
+            array('[', ']', 'finished', 'finish', $taskId),
+            array('', '', '', '', ''),
+            strtolower($message)
+        );
+
+        return (string) trim($messageCleaned);
+
+    }
+
+    /**
+     * Perform a Curl POST request
+     *
+     * @param $endpoint
+     * @param $objectId
+     * @param $json
+     * @return mixed
+     */
+    public function post($endpoint, $objectId, $json)
+    {
+        $channel = curl_init();
+        curl_setopt($channel, CURLOPT_URL, $this->teamworkURL . $endpoint . '/' . $objectId . '.json');
+        curl_setopt($channel, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($channel, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($channel, CURLOPT_POSTFIELDS, $json);
+        curl_setopt($channel, CURLOPT_HTTPHEADER, array(
+            "Authorization: BASIC " . base64_encode($this->apiKey . ":xxx"),
+            "Content-type:application/json"
+        ));
+
+        $response = curl_exec($channel);
+
+        curl_close($channel);
+
+        return $response;
     }
 }

@@ -13,4 +13,5 @@ $taskJson = json_encode(array('todo-item' => array('description' => $taskDescrip
 // Update the Task
 $response = $teamwork->put('tasks', $webHookData['objectId'], $taskJson);
 
-echo $response;
+// log response
+$teamwork->log('teamwork', json_decode($response, true));

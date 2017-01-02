@@ -6,6 +6,7 @@ $dotenv = new Dotenv();
 $dotenv->load(__DIR__ . '/../');
 
 $github = new teamwork\github();
+$teamwork = new teamwork\teamwork($_ENV['TEAMWORK_URL'], $_ENV['TEAMWORK_APIKEY']);
 
 // read in Posted webhook data
 $data = file_get_contents("php://input");
@@ -16,3 +17,11 @@ $webHookData = $github->receivePostedData($data);
 // log incoming data
 $github->log('github', $webHookData);
 
+// parse the data, only need the 'commits' section
+$commits = $github->parseGithubData($webHookData);
+
+// add comment(s) to Teamwork
+$response = $teamwork->addCommitComment($commits);
+
+// log response
+$teamwork->log('github', $response);

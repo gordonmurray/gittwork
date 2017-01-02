@@ -191,7 +191,7 @@ class teamwork
      * @param string $taskID
      * @return int
      */
-    public function cleanTaskId(string $taskID)
+    public function cleanTaskId($taskID)
     {
         $taskID = strtolower($taskID);
 
@@ -211,7 +211,7 @@ class teamwork
      * @param string $message
      * @return string
      */
-    public function cleanMessage(int $taskId, string $message)
+    public function cleanMessage($taskId, $message)
     {
         $messageCleaned = str_replace(
             array('[', ']', 'finished', 'finish', $taskId),

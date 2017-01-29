@@ -252,19 +252,19 @@ class teamwork
         if (is_array($commit)) {
 
             if (isset($commit['added']) && !empty($commit['added'])) {
-                $fileChanges .= PHP_EOL . 'Added: ';
-                $fileChanges .= implode(", ", $commit['added']);
+                $fileChanges .= PHP_EOL . '**Added:**' . PHP_EOL;
+                $fileChanges .= implode(PHP_EOL, $commit['added']);
             }
 
             if (isset($commit['removed']) && !empty($commit['removed'])) {
-                $fileChanges .= PHP_EOL . 'Removed: ';
-                $fileChanges .= implode(", ", $commit['removed']);
+                $fileChanges .= PHP_EOL . '**Removed:**' . PHP_EOL;
+                $fileChanges .= implode(PHP_EOL, $commit['removed']);
 
             }
 
             if (isset($commit['modified']) && !empty($commit['modified'])) {
-                $fileChanges .= PHP_EOL . 'Modified: ';
-                $fileChanges .= implode(", ", $commit['modified']);
+                $fileChanges .= PHP_EOL . '**Modified:**' . PHP_EOL;
+                $fileChanges .= implode(PHP_EOL, $commit['modified']);
             }
 
         }

@@ -84,9 +84,9 @@ class teamworkTest extends TestCase
 
         $fileChanges = $teamwork->parseFileChanges($commit);
 
-        $this->assertContains("Added: sample.json, sample.txt<br />", nl2br($fileChanges));
+        $this->assertContains("**Added:**".PHP_EOL."sample.json".PHP_EOL."sample.txt".PHP_EOL."", $fileChanges);
 
-        $this->assertContains("Modified: README.md", nl2br($fileChanges));
+        $this->assertContains("**Modified:**".PHP_EOL."README.md", $fileChanges);
 
     }
 }

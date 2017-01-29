@@ -2,13 +2,12 @@
 
 namespace teamwork;
 
-
 class bitbucket
 {
     /**
      * Receive POSTed commit data from Bitbucket
      *
-     * @param Request $request
+     * @param  Request $request
      * @return string
      */
     public function receiveBitbucketPost(Request $request)
@@ -23,19 +22,15 @@ class bitbucket
         $commentsArray = $this->parseBitbucketCommit($commitDataArray);
 
         foreach ($commentsArray as $commitCreatedTime => $commentsForTeamwork) {
-
             preg_match_all('(\\[.*?\\])', $commentsForTeamwork, $taskIDs);
 
             $taskIDsArray = current($taskIDs);
 
             if (is_array($taskIDsArray) && !empty($taskIDsArray)) {
-
                 foreach ($taskIDsArray as $taskID) {
-
                     $taskID = strtolower(preg_replace('/\s+/', '', trim($taskID))); // trim all whitespace, just in case
 
                     if ($taskID != '') {
-
                         $reassignForTesting = (stristr($taskID, 'finish') == true || stristr($taskID, 'finished')) ? true : false;
 
                         $taskID = str_replace(
@@ -85,7 +80,6 @@ class bitbucket
                         // todo: If development time was sent too, create a Time sheet entry for this task
 
                         // todo: re-assign the task and notify that its ready for testing
-
                     }
                 }
             }
@@ -97,12 +91,11 @@ class bitbucket
     /**
      * Given an array of data from Bitbucket, pull out the information we need
      *
-     * @param array $full_commit_data
+     * @param  array $full_commit_data
      * @return string
      */
     private function parseBitbucketCommit($full_commit_data)
     {
-
         $commit_changes = $full_commit_data['commits'];
         $comments_array = array();
         $commit_url = $full_commit_data['canon_url'] . $full_commit_data['repository']['absolute_url'] . 'commits/';
@@ -111,7 +104,6 @@ class bitbucket
          * Loop through the commits to get the message, branch and files changed
          */
         foreach ($commit_changes as $commit) {
-
             $commit_time = strtotime($commit['utctimestamp']);
 
             $comments = $commit['message'] . "\r\n\r\n";
@@ -131,7 +123,6 @@ class bitbucket
             $comments .= $commit_url . $commit['raw_node'] . "\r\n";
 
             $comments_array[$commit_time] = $comments;
-
         }
 
         return $comments_array;
@@ -141,10 +132,10 @@ class bitbucket
     /**
      * Perform a Curl request
      *
-     * @param $endpoint
-     * @param $method
-     * @param $apiKey
-     * @param array $postDataArray
+     * @param  $endpoint
+     * @param  $method
+     * @param  $apiKey
+     * @param  array    $postDataArray
      * @return mixed
      */
     private function curl($endpoint, $method, $apiKey, $postDataArray = array())
@@ -156,10 +147,12 @@ class bitbucket
         if (!empty($postDataArray)) {
             curl_setopt($channel, CURLOPT_POSTFIELDS, json_encode($postDataArray));
         }
-        curl_setopt($channel, CURLOPT_HTTPHEADER, array(
+        curl_setopt(
+            $channel, CURLOPT_HTTPHEADER, array(
             "Authorization: BASIC " . base64_encode($apiKey . ":xxx"),
             "Content-type:application/json"
-        ));
+            )
+        );
 
         $response = curl_exec($channel);
 

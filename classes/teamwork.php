@@ -2,12 +2,9 @@
 
 namespace teamwork;
 
-
 class teamwork
 {
-
-
-    function __construct($teamworkURL, $apiKey)
+    public function __construct($teamworkURL, $apiKey)
     {
         $this->teamworkURL = $teamworkURL;
         $this->apiKey = $apiKey;
@@ -34,7 +31,7 @@ class teamwork
      */
     public function prepareTaskDescription($task)
     {
-        $task = json_decode($task, TRUE);
+        $task = json_decode($task, true);
         $taskId = $task['todo-item']['id'];
 
         $description = "Include \"[$taskId]\" or \"[Finish(ed) $taskId]\" to update this task when making a commit. Record time spent on the task by using: \"[$taskId:30]\"";
@@ -100,7 +97,7 @@ class teamwork
      */
     public function prepareProjectTitle($project)
     {
-        $projectArray = json_decode($project, TRUE);
+        $projectArray = json_decode($project, true);
 
         $projectId = $projectArray['project']['id'];
 
@@ -109,7 +106,6 @@ class teamwork
         $newProjectName = "[$projectId] $projectName";
 
         return $newProjectName;
-
     }
 
     /**
@@ -121,7 +117,6 @@ class teamwork
     public function log($name, array $array)
     {
         if (is_array($array) && !empty($array)) {
-
             $timestamp = date("Y_m_d_G_i_s");
 
             $fp = fopen(__DIR__ . '/../logs/' . $name . '.log', 'a');
@@ -144,7 +139,6 @@ class teamwork
 
         // loop over the commits
         foreach ($commits as $commit) {
-
             $message = $commit['message'];
 
             preg_match_all('(\\[.*?\\])', $message, $teamworkTaskIds);
@@ -152,13 +146,10 @@ class teamwork
             $taskIdsArray = current($teamworkTaskIds);
 
             if (is_array($taskIdsArray) && !empty($taskIdsArray)) {
-
                 foreach ($taskIdsArray as $taskID) {
-
                     $taskID = strtolower(preg_replace('/\s+/', '', trim($taskID))); // trim all whitespace, just in case
 
                     if ($taskID != '') {
-
                         $taskID = $this->cleanTaskId($taskID);
 
                         $message = $this->cleanMessage($taskID, $message);
@@ -172,14 +163,11 @@ class teamwork
                         );
 
                         $responsesArray[] = $this->post('/tasks/' . $taskID . '/comments.json', $taskID, json_encode($commentArray));
-
                     }
                 }
             } else {
                 $responsesArray[] = 'No task ID found in this commit';
             }
-
-
         }
 
         return $responsesArray;
@@ -220,7 +208,6 @@ class teamwork
         );
 
         return (string) trim($messageCleaned);
-
     }
 
     /**

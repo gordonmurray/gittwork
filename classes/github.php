@@ -2,10 +2,9 @@
 
 namespace teamwork;
 
-
 class github
 {
-    function __construct()
+    public function __construct()
     {
     }
 
@@ -33,7 +32,6 @@ class github
     public function log($name, array $array)
     {
         if (is_array($array) && !empty($array)) {
-
             $timestamp = date("Y_m_d_G_i_s");
 
             $fp = fopen(__DIR__ . '/../logs/' . $name . '.log', 'a');

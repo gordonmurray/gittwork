@@ -63,12 +63,30 @@ class teamworkTest extends TestCase
         $teamwork = new teamwork\teamwork('test', 'test');
 
         $taskId = 12345;
-        $messagesArray = array("[12345] updated a file", "updated a file [12345]","[finished 12345] updated a file");
+        $messagesArray = array("[12345] updated a file", "updated a file [12345]", "[finished 12345] updated a file");
 
         foreach ($messagesArray as $message) {
             $response = $teamwork->cleanMessage($taskId, $message);
             $this->assertEquals('updated a file', $response);
         }
+
+    }
+
+    public function testFileChanges()
+    {
+        $teamwork = new teamwork\teamwork('test', 'test');
+
+        $githubData = file_get_contents('./tests/samples/githubSeveralFiles.json');
+
+        $githubdataArray = json_decode($githubData, true);
+
+        $commit = $githubdataArray['commits'][0];
+
+        $fileChanges = $teamwork->parseFileChanges($commit);
+
+        $this->assertContains("Added: sample.json, sample.txt<br />", nl2br($fileChanges));
+
+        $this->assertContains("Modified: README.md", nl2br($fileChanges));
 
     }
 }

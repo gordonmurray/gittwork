@@ -154,9 +154,11 @@ class teamwork
 
                         $message = $this->cleanMessage($taskID, $message);
 
+                        $fileChanges = $this->parseFileChanges($commit);
+
                         $commentArray = array(
                             'comment' => array(
-                                'body' => $message,
+                                'body' => $message . PHP_EOL . $fileChanges,
                                 'isprivate' => false,
                                 ''
                             )
@@ -189,7 +191,7 @@ class teamwork
             $taskID
         );
 
-        return (int) $taskID;
+        return (int)$taskID;
     }
 
     /**
@@ -207,7 +209,7 @@ class teamwork
             strtolower($message)
         );
 
-        return (string) trim($messageCleaned);
+        return (string)trim($messageCleaned);
     }
 
     /**
@@ -236,4 +238,39 @@ class teamwork
 
         return $response;
     }
+
+    /**
+     * Given a commit, pull out the Added, Removed, modified parts
+     *
+     * @param $commit
+     * @return string
+     */
+    public function parseFileChanges($commit)
+    {
+        $fileChanges = '';
+
+        if (is_array($commit)) {
+
+            if (isset($commit['added']) && !empty($commit['added'])) {
+                $fileChanges .= PHP_EOL . 'Added: ';
+                $fileChanges .= implode(", ", $commit['added']);
+            }
+
+            if (isset($commit['removed']) && !empty($commit['removed'])) {
+                $fileChanges .= PHP_EOL . 'Removed: ';
+                $fileChanges .= implode(", ", $commit['removed']);
+
+            }
+
+            if (isset($commit['modified']) && !empty($commit['modified'])) {
+                $fileChanges .= PHP_EOL . 'Modified: ';
+                $fileChanges .= implode(", ", $commit['modified']);
+            }
+
+        }
+
+        return trim($fileChanges);
+    }
+
 }
+

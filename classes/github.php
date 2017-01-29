@@ -48,7 +48,7 @@ class github
      * @param array $webHookData
      * @return array
      */
-    public function parseGithubData(array $webHookData)
+public function parseGithubData(array $webHookData)
     {
         if (isset($webHookData['commits']) && !empty($webHookData['commits'])) {
             return $webHookData['commits'];

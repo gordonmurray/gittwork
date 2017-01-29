@@ -133,7 +133,7 @@ class teamwork
      * @param array $commits
      * @return array
      */
-    public function addCommitComment(array $commits)
+    public function addCommitComment($repository, array $commits)
     {
         $responsesArray = array();
 
@@ -156,9 +156,11 @@ class teamwork
 
                         $fileChanges = $this->parseFileChanges($commit);
 
+                        $commitURL = $this->parseCommitURL($repository, $commit);
+
                         $commentArray = array(
                             'comment' => array(
-                                'body' => $message . PHP_EOL . $fileChanges,
+                                'body' => $message . PHP_EOL . $fileChanges . PHP_EOL . $commitURL,
                                 'isprivate' => false,
                                 ''
                             )
@@ -252,24 +254,46 @@ class teamwork
         if (is_array($commit)) {
 
             if (isset($commit['added']) && !empty($commit['added'])) {
-                $fileChanges .= PHP_EOL . '**Added:**' . PHP_EOL;
+                $fileChanges .= PHP_EOL . PHP_EOL . '**Added:**' . PHP_EOL;
                 $fileChanges .= implode(PHP_EOL, $commit['added']);
             }
 
             if (isset($commit['removed']) && !empty($commit['removed'])) {
-                $fileChanges .= PHP_EOL . '**Removed:**' . PHP_EOL;
+                $fileChanges .= PHP_EOL . PHP_EOL . '**Removed:**' . PHP_EOL;
                 $fileChanges .= implode(PHP_EOL, $commit['removed']);
 
             }
 
             if (isset($commit['modified']) && !empty($commit['modified'])) {
-                $fileChanges .= PHP_EOL . '**Modified:**' . PHP_EOL;
+                $fileChanges .= PHP_EOL . PHP_EOL . '**Modified:**' . PHP_EOL;
                 $fileChanges .= implode(PHP_EOL, $commit['modified']);
             }
 
         }
 
         return trim($fileChanges);
+    }
+
+    /**
+     * Create a direct link to the commit using the repository base url and commit ID
+     *
+     * @param $repository
+     * @param $commit
+     * @return string
+     */
+    public function parseCommitURL($repository, $commit)
+    {
+        $commitURL = '';
+
+        if (is_array($commit)) {
+
+            if (isset($commit['id'])) {
+                $commitURL = PHP_EOL . PHP_EOL . $repository . '/commit/' . $commit['id'];
+            }
+
+        }
+
+        return $commitURL;
     }
 
 }

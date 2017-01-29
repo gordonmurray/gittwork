@@ -48,13 +48,26 @@ class github
      * @param array $webHookData
      * @return array
      */
-public function parseGithubData(array $webHookData)
+    public function parseGithubData(array $webHookData)
     {
         if (isset($webHookData['commits']) && !empty($webHookData['commits'])) {
             return $webHookData['commits'];
         } else {
             $this->log('github', array('error' => 'missing commits array from webhook data'));
             return array();
+        }
+    }
+
+    /**
+     * Given the Github wbhook data, parse the URL of the repo
+     * 
+     * @param $webHookData
+     * @return mixed
+     */
+    public function parseRepositoryURL($webHookData)
+    {
+        if (isset($webHookData['repository']) && isset($webHookData['repository']['url'])) {
+            return $webHookData['repository']['url'];
         }
     }
 }

@@ -84,9 +84,42 @@ class teamworkTest extends TestCase
 
         $fileChanges = $teamwork->parseFileChanges($commit);
 
-        $this->assertContains("**Added:**".PHP_EOL."sample.json".PHP_EOL."sample.txt".PHP_EOL."", $fileChanges);
+        $this->assertContains("**Added:**" . PHP_EOL . "sample.json" . PHP_EOL . "sample.txt" . PHP_EOL . "", $fileChanges);
 
-        $this->assertContains("**Modified:**".PHP_EOL."README.md", $fileChanges);
+        $this->assertContains("**Modified:**" . PHP_EOL . "README.md", $fileChanges);
 
+    }
+
+    public function testParseRepositoryURL()
+    {
+        $github = new \teamwork\github();
+
+        $githubData = file_get_contents('./tests/samples/githubSeveralFiles.json');
+
+        $githubdataArray = json_decode($githubData, true);
+
+        $repositoryURL = $github->parseRepositoryURL($githubdataArray);
+
+        $this->assertEquals("https://github.com/gordonmurray/repository-for-testing", $repositoryURL);
+
+    }
+
+    public function testParseCommitURL()
+    {
+        $github = new \teamwork\github();
+        $teamwork = new teamwork\teamwork('test', 'test');
+
+        $githubData = file_get_contents('./tests/samples/githubSeveralFiles.json');
+
+        $githubdataArray = json_decode($githubData, true);
+
+        $repository = $github->parseRepositoryURL($githubdataArray);
+
+        $commit = $githubdataArray['commits'][0];
+
+        $commitURL = $teamwork->parseCommitURL($repository, $commit);
+
+        $this->assertEquals("https://github.com/gordonmurray/repository-for-testing/commit/4bb756aedac97e898846378cf7ec467f40a4277c", trim($commitURL));
+        
     }
 }

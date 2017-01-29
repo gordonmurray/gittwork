@@ -17,11 +17,14 @@ $webHookData = $github->receivePostedData($data);
 // log incoming data
 $github->log('github', $webHookData);
 
+// parse repository address
+$repository = $github->parseRepositoryURL($webHookData);
+
 // parse the data, only need the 'commits' section
 $commits = $github->parseGithubData($webHookData);
 
 // add comment(s) to Teamwork
-$response = $teamwork->addCommitComment($commits);
+$response = $teamwork->addCommitComment($repository, $commits);
 
 // log response
 $teamwork->log('github', $response);
